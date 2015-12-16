@@ -1,0 +1,14 @@
+<atlassian-ide-plugin>
+  <project-configuration id="1">
+    <servers id="2">
+      <jira id="3">
+        <server-id id="4">3fc77dc6-4294-4f38-abff-11c20f8a14fc</server-id>
+        <name>Taxisto</name>
+        <url>http://jira.taxisto.ru</url>
+        <shared>false</shared>
+        <useSessionCookies>true</useSessionCookies>
+      </jira>
+    </servers>
+    <default-jira-server reference="4" />
+  </project-configuration>
+</atlassian-ide-plugin>

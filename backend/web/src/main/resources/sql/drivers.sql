@@ -1,0 +1,1 @@
+INSERT INTO taxisto.driver (id, auto_class, auto_color, auto_model, auto_mumber, balance, first_name, last_name, login, password, phone, photo_url, rating, state, stops_count, stops_time) VALUES (1, 1, 'green', 'Nissan', 'vv772v74', 0, 'Petrov', 'Petr', '111111', '12345', '+79833158988', null, 0, 0, 0, 0);

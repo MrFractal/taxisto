@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="TaxistoPm" uuid="ba2e0c42-2a18-4f6a-8403-5eac5e459f0c">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="jdbc" uuid="a6a7ece4-56bb-496b-b09b-37c256f9ae7b">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="default" uuid="1626a777-d1f9-4961-b216-bf92e3605c3c">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

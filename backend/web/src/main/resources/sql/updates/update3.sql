@@ -1,0 +1,1 @@
+CREATE TABLE test3(a INTEGER, b BIGINT);

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+
+
+    <!--<import resource="rabbitmq-context.xml"/>-->
+
+    <bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:profiles/default.properties</value>
+                <value>classpath:profiles/${spring.profiles.active}.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <mvc:resources mapping="/profiles/*" location="file:/${profiles.path}"/>
+
+    <context:annotation-config/>
+
+    <!-- SPRING - JPA -->
+    <jpa:repositories base-package="ru.trendtech.repositories, ru.trendtech.repositories.billing"/>
+
+    <context:component-scan base-package="ru.trendtech.services"/>
+
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+            <!--<bean class="ru.trendtech.services.resources.CustomHibernateJpaDialect" />-->
+        </property>
+    </bean>
+
+
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--<bean id="applicationContextUtils" class="ru.trendtech.utils.context.ApplicationContextUtils"></bean>-->
+
+    <!-- BoneCP configuration -->
+    <bean id="boneCPDataSource" class="com.jolbox.bonecp.BoneCPDataSource" lazy-init="true" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="idleConnectionTestPeriodInMinutes" value="1"/>
+        <property name="idleMaxAgeInMinutes" value="4"/>
+        <property name="maxConnectionsPerPartition" value="30"/>
+        <property name="minConnectionsPerPartition" value="1"/>
+        <property name="poolAvailabilityThreshold" value="5"/>
+        <property name="partitionCount" value="1"/>
+        <property name="acquireIncrement" value="3"/>
+        <property name="statementsCacheSize" value="50"/>
+        <!--<property name="releaseHelperThreads" value="3"/>-->
+        <property name="connectionTestStatement" value="SELECT 1"/>
+        <!--<property name="lazyInit" value="true"/>-->
+    </bean>
+
+
+    <bean id="mainDataSource"  class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="8"/>
+        <property name="maxIdle" value="30"/>
+        <property name="minIdle" value="0"/>
+        <property name="testOnBorrow" value="true"/>
+        <!--<property name="testOnReturn" value="true"/>-->
+        <property name="validationQuery" value="select 1"/>
+    </bean>
+
+
+
+
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <!--<property name="persistenceUnitName" value="TaxistoPm"/>-->
+        <property name="dataSource" ref="boneCPDataSource"/>
+        <!--<property name="dataSource" ref="mainDataSource"/>-->
+        <property name="packagesToScan" value="ru.trendtech.domain"/>
+
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+                <!--<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>-->
+                <!--<property name="showSql" value="false"/>-->
+                <!--<property name="generateDdl" value="true"/>-->
+            <!--</bean>-->
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.id.new_generator_mappings">${hibernate.id.new_generator_mappings}</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.connection.pool_size">20</prop>
+
+                <prop key="jadira.usertype.autoRegisterUserTypes">true</prop>
+                <prop key="jadira.usertype.currencyCode">USD</prop>
+                <!--<prop key="jadira.usertype.seed">org.jadira.usertype.spi.shared.JvmTimestampSeed</prop>-->
+                <prop key="jadira.usertype.databaseZone">UTC</prop>
+                <prop key="jadira.usertype.javaZone">UTC</prop>
+
+
+                <!--<prop key="jadira.usertype.seed">org.jadira.usertype.spi.shared.JvmTimestampSeed</prop>-->
+                <!--<prop key="jadira.usertype.autoRegisterUserTypes">true</prop>-->
+                <!--<prop key="jadira.usertype.databaseZone">UTC</prop>-->
+                <!--<prop key="jadira.usertype.javaZone">jvm</prop>-->
+                <!--<prop key="jadira.usertype.currencyCode">USD</prop>-->
+            </props>
+        </property>
+    </bean>
+
+    <bean id="loggingProcessor" class="ru.trendtech.services.logging.LoggerPostProcessor"/>
+
+    <!--<aop:config proxy-target-class="true"/>-->
+
+
+
+    <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+        <!--property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="***@gmail.com" />
+        <property name="password" value="***" /-->
+
+        <property name="host" value="smtp.yandex.ru" />
+        <property name="port" value="465" />
+        <!--<property name="port" value="25" />-->
+        <property name="username" value="no-reply@taxisto.ru" />
+        <property name="password" value="SyU52hJ" />
+
+
+        <property name="javaMailProperties">
+            <props>
+                <!--<prop key="mail.smtps.auth">true</prop>-->
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.smtps.starttls.enable">true</prop>
+                <!--<prop key="mail.transport.protocol">smtp</prop>-->
+                <!--<prop key="mail.smtp.auth">true</prop>-->
+                <!--<prop key="mail.debug">true</prop>-->
+            </props>
+        </property>
+    </bean>
+
+    <bean id="serviceEmailNotification" class="ru.trendtech.services.email.ServiceEmailNotification">
+        <property name="mailSender" ref="mailSender" />
+    </bean>
+
+
+    <task:executor id="myExecutor" pool-size="30"/>
+
+    <task:scheduler id="myScheduler" pool-size="30"/>
+
+    <task:annotation-driven executor="exceptionHandlingTaskExecutor" scheduler="myScheduler"/>
+
+    <bean id="exceptionHandlingTaskExecutor" class="ru.trendtech.utils.ExceptionHandlingAsyncTaskExecutor">
+        <constructor-arg ref="myExecutor"/>
+    </bean>
+
+
+    <!--<lang:groovy id="bundleRefresh" refresh-check-delay="5000" script-source="classpath:ru/trendtech/services/internationalization/GroovyDefaultLang.groovy">-->
+        <!--<lang:property name="defaultLang" value="ru" />-->
+    <!--</lang:groovy>-->
+
+</beans>

@@ -1,0 +1,1 @@
+INSERT INTO taxisto.client (id, birthday, city, country, email, first_name, gender, last_name, password, phone, picture_url, rating, registration_state, sms_code) VALUES (1, '1980-03-12 14:33:11', 'Новосибирск', 'Россия', 'ivanenok@gmail.com', 'Maxim', 'UNDEFINED', 'Ivanov', '123456', '+79833158988', null, 0, 'CONFIRMED', null);

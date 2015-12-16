@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1960851959">
+    <data-source source="LOCAL" name="TaxistoPm" uuid="ba2e0c42-2a18-4f6a-8403-5eac5e459f0c">
+      <jdbc-driver>org.gjt.mm.mysql.Driverql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/taxisto?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;characterResultSets=utf8//localhost:3306/taxisto?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;characterResultSets=utf8</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="jdbc" uuid="a6a7ece4-56bb-496b-b09b-37c256f9ae7b">
+      <driver-ref>hsqldb.remote</driver-ref>
+      <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
+      <jdbc-url>jdbc:hsqldb:mem:test</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$MAVEN_REPOSITORY$/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="default" uuid="1626a777-d1f9-4961-b216-bf92e3605c3c">
+      <jdbc-driver>org.gjt.mm.mysql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/taxisto?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;characterResultSets=utf8</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>

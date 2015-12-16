@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="OPERATION">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="CRDATE" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="ACCOUNT" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="SERVICE" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="TARGET" minOccurs="1" maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="KEYATTR" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:attribute name="name" type="xsd:string"/>
+                                    <xsd:attribute name="value" type="xsd:string" use="required"/>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="SUM" type="xsd:double" minOccurs="1" maxOccurs="1"/>
+
+                <xsd:element name="POINT" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="POINT_TRANS" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="CHK" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="REMOTE_ID" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="REMOTE_CRDATE" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="REMOTE_INFO" minOccurs="0" maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ITEM" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:attribute name="name" type="xsd:string" use="required"/>
+                                    <xsd:attribute name="value" type="xsd:string" use="required"/>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:element name="REMOTE_STATUS" type="xsd:integer" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="REMOTE_STATUS_MSG" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="REMOTE_FINDATE" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:integer" use="required"/>
+            <xsd:attribute name="type" type="oper_type"/>
+            <xsd:attribute name="status" type="oper_status"/>
+            <xsd:attribute name="processing" type="bool"/>
+
+            <xsd:attribute name="finished" type="bool"/>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:simpleType name="oper_type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="start"/>
+            <xsd:enumeration value="commit"/>
+            <xsd:enumeration value="execute"/>
+            <xsd:enumeration value="cancel"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="oper_status">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="new"/>
+            <xsd:enumeration value="accepted"/>
+            <xsd:enumeration value="committed"/>
+            <xsd:enumeration value="rejected"/>
+            <xsd:enumeration value="canceled"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="bool">
+        <xsd:restriction base="xsd:integer">
+            <xsd:enumeration value="0"/>
+            <xsd:enumeration value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

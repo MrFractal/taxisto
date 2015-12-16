@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <servers>
+   <server>
+       <id>dev.taxisto.ru</id>
+       <username>deploy</username>
+       <password>deployment123654</password>
+   </server>    
+   <server>
+      	<id>trendtech-central</id>
+      	<username></username>
+	<password></password>
+    </server>
+    <server>
+      	<id>trendtech-snapshots</id>
+      	<username></username>
+	<password></password>
+    </server>
+    <server>
+      	<id>taxisto.ru</id>
+      	<username></username>
+	<password></password>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>trendtech-central</id>
+          <name>libs-release</name>
+          <url>http://repo.taxisto.ru/artifactory/libs-release</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>trendtech-snapshots</id>
+          <name>libs-snapshot</name>
+          <url>http://repo.taxisto.ru/artifactory/libs-snapshot</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>trendtech-central</id>
+          <name>plugins-release</name>
+          <url>http://repo.taxisto.ru/artifactory/plugins-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>trendtech-snapshots</id>
+          <name>plugins-snapshot</name>
+          <url>http://repo.taxisto.ru/artifactory/plugins-snapshot</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>artifactory</id>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
+</settings>
