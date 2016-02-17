@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <!--<rabbit:connection-factory id="connectionFactory"-->
+       <!--host="localhost" username="guest" password="guest" />-->
+
+       <!--<rabbit:admin connection-factory="connectionFactory" />-->
+
+       <rabbit:connection-factory id="rabbitConnectionFactory" username="${rabbit.user}" host="${rabbit.host}" password="${rabbit.pass}" port="5672"/>
+
+       <rabbit:template id="rabbitTemplate" connection-factory="rabbitConnectionFactory" exchange="myExchange" routing-key="rabbit.bar"/>
+
+       <rabbit:queue name="myQueue" durable="true"/>
+
+       <rabbit:topic-exchange name="myExchange">
+              <rabbit:bindings>
+                     <rabbit:binding queue="myQueue" pattern="rabbit.*" />
+              </rabbit:bindings>
+       </rabbit:topic-exchange>
+
+
+
+       <rabbit:listener-container connection-factory="rabbitConnectionFactory">
+              <rabbit:listener ref="receiver" queue-names="myQueue" />
+       </rabbit:listener-container>
+
+       <rabbit:admin connection-factory="rabbitConnectionFactory"/>
+
+       <!--rabbitTemplate - расширяет в том числе и amqpTemplate-->
+       <rabbit:template id="amqpTemplate" connection-factory="rabbitConnectionFactory"/>
+
+       <bean id="receiver" class="ru.trendtech.services.rabbit.Receiver" />
+</beans>

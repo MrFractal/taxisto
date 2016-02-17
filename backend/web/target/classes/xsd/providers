@@ -1,0 +1,26 @@
+                    <execution>
+                        <id>generate-response</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <!--<schemaDirectory>src/main/resources/xsd/</schemaDirectory>-->
+                            <schemaFiles>/src/main/resources/xsd/gate_response.xsd</schemaFiles>
+                            <packageName>ru.trendtech.integration.payonline.response</packageName>
+                            <clearOutputDir>true</clearOutputDir>
+                            <!--<arguments>-extension -npa -b ${project.basedir}/src/main/xsd/global.xjb</arguments>-->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-error</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources/xsd/</schemaDirectory>
+                            <schemaFiles>gate_err.xsd</schemaFiles>
+                            <packageName>ru.trendtech.integration.payonline.error</packageName>
+                            <clearOutputDir>true</clearOutputDir>
+                            <!--<arguments>-extension -npa -b ${project.basedir}/src/main/xsd/global.xjb</arguments>-->
+                        </configuration>
+                    </execution>

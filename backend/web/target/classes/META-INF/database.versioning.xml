@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="databaseUpdater" class="ru.trendtech.services.versioning.DatabaseVersionUpdater">
+        <property name="dataSource" ref="pooledDataSource"/>
+        <property name="locations">
+            <list>
+                <value>classpath:sql/updates/update1.sql</value>
+                <value>classpath:sql/updates/update2.sql</value>
+                <value>classpath:sql/updates/update3.sql</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

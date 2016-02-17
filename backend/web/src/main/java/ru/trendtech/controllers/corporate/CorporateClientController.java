@@ -19,6 +19,8 @@ import ru.trendtech.services.client.ClientService;
 import ru.trendtech.services.common.CommonService;
 import ru.trendtech.services.validate.ValidatorService;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by petr on 13.03.2015.
  */
@@ -81,8 +83,6 @@ public class CorporateClientController {
 
 
 
-
-
     @RequestMapping(value = "/stat", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -92,12 +92,10 @@ public class CorporateClientController {
 
 
 
-
-
     @RequestMapping(value = "/blockClient", method = RequestMethod.POST)
     public
     @ResponseBody
-    BlockCorporateClientResponse blockClient(@RequestBody BlockCorporateClientRequest request) {
+    BlockCorporateClientResponse blockClient(HttpServletRequest commonRequest, @RequestBody BlockCorporateClientRequest request) {
         if(!validatorService.validateUser(request.getMainClientId(), request.getSecurity_token(), 1)) {
             throw new CustomException(3, "Tokens are not equal");
         }

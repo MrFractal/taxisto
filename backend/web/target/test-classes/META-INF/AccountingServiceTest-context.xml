@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--<import resource="applicationContext-security.xml"/>-->
+    <!--<context:property-placeholder location="classpath:system.properties"/>-->
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.trend4web"/>
+
+    <tx:annotation-driven/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="MySQLPersistenceUnit"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"-->
+    <!--p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}" p:username="${jdbc.username}" p:password="${jdbc.password}"-->
+    <!--p:initialSize="${jdbc.initialSize}" p:maxActive="${jdbc.maxActive}" p:maxIdle="${jdbc.maxIdle}" p:minIdle="${jdbc.minIdle}"-->
+    <!--p:maxWait="${jdbc.maxWait}" p:validationQuery="${jdbc.validationQuery}" p:testOnBorrow="${jdbc.testOnBorrow}"/>-->
+    <!--<jdbc:initialize-database data-source="dataSource">-->
+    <!--<jdbc:script location="${jdbc.scriptLocation}"/>-->
+    <!--</jdbc:initialize-database>-->
+
+
+    <!--<context:property-placeholder location="classpath:/jdbc.properties" />-->
+
+    <!--<tx:annotation-driven />-->
+
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"-->
+    <!--p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"-->
+    <!--p:username="${jdbc.username}" p:password="${jdbc.password}"/>-->
+
+    <!--<jdbc:initialize-database data-source="dataSource">-->
+    <!--<jdbc:script location="${jdbc.initLocation}"/>-->
+    <!--<jdbc:script location="${jdbc.dataLocation}"/>-->
+    <!--</jdbc:initialize-database>-->
+
+
+    <!-- Note: the specific "jpaAdapter" bean sits in adapter context file -->
+    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"-->
+    <!--p:dataSource-ref="dataSource" p:jpaVendorAdapter-ref="jpaAdapter">-->
+    <!--<property name="loadTimeWeaver">-->
+    <!--<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />-->
+    <!--</property>-->
+    <!--<property name="persistenceXmlLocation" value="classpath:META-INF/persistence-hsql.xml"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"-->
+    <!--p:entityManagerFactory-ref="entityManagerFactory" />-->
+
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"-->
+    <!--p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"-->
+    <!--p:username="${jdbc.username}" p:password="${jdbc.password}"/>-->
+
+    <!--<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">-->
+    <!--<jdbc:script location="${jdbc.initLocation}"/>-->
+    <!--<jdbc:script location="${jdbc.dataLocation}"/>-->
+    <!--</jdbc:initialize-database>-->
+
+    <!--<bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"-->
+    <!--p:database="${jpa.database}" p:showSql="${jpa.showSql}" />-->
+
+    <aop:aspectj-autoproxy/>
+
+    <!--<bean class="org.springframework.samples.petclinic.aspects.UsageLogAspect" p:historySize="300" />-->
+
+    <!--<bean id="clinic" class="org.springframework.samples.petclinic.jpa.EntityManagerClinic" />-->
+
+</beans>
